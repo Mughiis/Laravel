@@ -11,6 +11,8 @@
  <td>
  <a class="btn btn-primary"
  href="{{ url('resto/pizza/edit').'/'.$cur->id }}">Edit</a>
+ <a class="btn btn-primary"
+ href="{{ url('resto/pizza/image').'/'.$cur->id }}">Gambar</a>
  <form method="post"
  action="{{ url('resto/pizza/destroy').'/'.$cur->id }}"
  style="display:inline">

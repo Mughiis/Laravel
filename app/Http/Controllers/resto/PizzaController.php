@@ -104,5 +104,23 @@ return view('resto.pizza.edit', compact(['pizza']));
             return redirect()->back()->withInput()->withErrors(['msg' => $e->getMessage()]);
            }
            return redirect('/resto/pizza')->with('success', 'Berhasil hapus data');
+           
     }
+    public function postimage($id, Request $request){
+        Validator::make($request->all(), [
+        'pizza_url' => 'required'
+        ], [
+        'pizza_url.required' => 'Gambar pizza harus diisi!'
+        ])->validate();
+        $recently_upload = '';
+        try{
+        $pizza = Pizza::find($id);
+        $recently_upload = $request->file('pizza_url')->store('pizza_resources');
+        $pizza->pizza_url = $recently_upload;
+        $pizza->save();
+        }catch(\Exception $e){
+        return back()->withInput()->withErrors(['msg' => $e->getMessage()]);
+        }
+        return redirect('/resto/pizza')->with('success', 'Berhasil tambah gambar');
+       }
 }
